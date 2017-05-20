@@ -2,10 +2,22 @@ import os
 import argparse
 import gym
 
-
 def main(env_name, episode_count):
-    # your code here
+    env = gym.make(env_name)
 
+    for _ in range(episode_count):
+        observation = env.reset()
+        done = False
+        score = 0
+
+        while not done:
+            env.render()
+            action = env.action_space.sample()
+            observation, reward, done, info = env.step(action)
+            score += reward
+
+            if done:
+                print('Episode {} end: score={}'.format(_, score))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Let's Start OpenAI Gym")
